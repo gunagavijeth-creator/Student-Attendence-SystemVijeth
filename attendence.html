@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #06b6d4);
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 38px;
+        }
+
+        .header p {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .main {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #dbeafe;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .add {
+            background: #10b981;
+        }
+
+        .update {
+            background: #3b82f6;
+        }
+
+        .delete {
+            background: #ef4444;
+        }
+
+        .clear {
+            background: #f59e0b;
+        }
+
+        .table-section {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 20px;
+            overflow-x: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .table-section h2 {
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: 0.3s;
+        }
+
+        tbody tr:hover {
+            background: #eef2ff;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .excellent {
+            background: #10b981;
+        }
+
+        .good {
+            background: #3b82f6;
+        }
+
+        .average {
+            background: #f59e0b;
+        }
+
+        .poor {
+            background: #ef4444;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media(max-width: 900px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Student Management System</h1>
+            <p>Manage Student Records Easily & Professionally</p>
+        </div>
+
+        <div class="main">
+
+            <!-- FORM -->
+            <div class="form-section">
+
+                <h2>Add Student</h2>
+
+                <div class="input-group">
+                    <label>Student ID</label>
+                    <input type="text" id="sid" placeholder="Enter Student ID">
+                </div>
+
+                <div class="input-group">
+                    <label>Student Name</label>
+                    <input type="text" id="sname" placeholder="Enter Student Name">
+                </div>
+
+                <div class="input-group">
+                    <label>Department</label>
+
+                    <select id="sdept">
+                        <option>CSE</option>
+                        <option>ECE</option>
+                        <option>ME</option>
+                        <option>CIVIL</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Marks</label>
+                    <input type="number" id="smarks" placeholder="Enter Marks">
+                </div>
+
+                <div class="input-group">
+                    <label>Attendance (%)</label>
+                    <input type="number" id="sattendance" placeholder="Enter Attendance">
+                </div>
+
+                <div class="btn-group">
+
+                    <button class="btn add" onclick="addStudent()">
+                        Add
+                    </button>
+
+                    <button class="btn update" onclick="updateStudent()">
+                        Update
+                    </button>
+
+                    <button class="btn delete" onclick="deleteStudent()">
+                        Delete
+                    </button>
+
+                    <button class="btn clear" onclick="clearFields()">
+                        Clear
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-section">
+
+                <h2>Student Records</h2>
+
+                <table id="studentTable">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Marks</th>
+                            <th>Attendance</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            © 2026 Student Management System | HTML CSS JavaScript
+        </div>
+
+    </div>
+
+    <script>
+
+        let selectedRow = null;
+
+        function calculateGrade(marks) {
+
+            if (marks >= 90) return "A+";
+            else if (marks >= 80) return "A";
+            else if (marks >= 70) return "B";
+            else if (marks >= 60) return "C";
+            else return "F";
+        }
+
+        function calculateStatus(marks) {
+
+            if (marks >= 90)
+                return ["Excellent", "excellent"];
+
+            else if (marks >= 75)
+                return ["Good", "good"];
+
+            else if (marks >= 60)
+                return ["Average", "average"];
+
+            else
+                return ["Poor", "poor"];
+        }
+
+        function addStudent() {
+
+            let id = document.getElementById("sid").value;
+            let name = document.getElementById("sname").value;
+            let dept = document.getElementById("sdept").value;
+            let marks = document.getElementById("smarks").value;
+            let attendance = document.getElementById("sattendance").value;
+
+            if (id == "" || name == "" || marks == "" || attendance == "") {
+
+                alert("Please fill all fields");
+                return;
+            }
+
+            let grade = calculateGrade(marks);
+
+            let statusData = calculateStatus(marks);
+
+            let statusText = statusData[0];
+            let statusClass = statusData[1];
+
+            let table = document.getElementById("studentTable").getElementsByTagName('tbody')[0];
+
+            let row = table.insertRow();
+
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${dept}</td>
+                <td>${marks}</td>
+                <td>${attendance}%</td>
+                <td>${grade}</td>
+                <td>
+                    <span class="status ${statusClass}">
+                        ${statusText}
+                    </span>
+                </td>
+            `;
+
+            row.onclick = function () {
+                selectedRow = row;
+
+                document.getElementById("sid").value = row.cells[0].innerHTML;
+                document.getElementById("sname").value = row.cells[1].innerHTML;
+                document.getElementById("sdept").value = row.cells[2].innerHTML;
+                document.getElementById("smarks").value = row.cells[3].innerHTML;
+                document.getElementById("sattendance").value =
+                    row.cells[4].innerHTML.replace("%", "");
+            };
+
+            clearFields();
+        }
+
+        function updateStudent() {
+
+            if (selectedRow == null) {
+                alert("Please select a student row");
+                return;
+            }
+
+            let id = document.getElementById("sid").value;
+            let name = document.getElementById("sname").value;
+            let dept = document.getElementById("sdept").value;
+            let marks = document.getElementById("smarks").value;
+            let attendance = document.getElementById("sattendance").value;
+
+            let grade = calculateGrade(marks);
+
+            let statusData = calculateStatus(marks);
+
+            selectedRow.cells[0].innerHTML = id;
+            selectedRow.cells[1].innerHTML = name;
+            selectedRow.cells[2].innerHTML = dept;
+            selectedRow.cells[3].innerHTML = marks;
+            selectedRow.cells[4].innerHTML = attendance + "%";
+            selectedRow.cells[5].innerHTML = grade;
+
+            selectedRow.cells[6].innerHTML =
+                `<span class="status ${statusData[1]}">
+                    ${statusData[0]}
+                </span>`;
+
+            clearFields();
+
+            selectedRow = null;
+        }
+
+        function deleteStudent() {
+
+            if (selectedRow == null) {
+                alert("Please select a row to delete");
+                return;
+            }
+
+            selectedRow.remove();
+
+            clearFields();
+
+            selectedRow = null;
+        }
+
+        function clearFields() {
+
+            document.getElementById("sid").value = "";
+            document.getElementById("sname").value = "";
+            document.getElementById("smarks").value = "";
+            document.getElementById("sattendance").value = "";
+        }
+
+    </script>
+
+</body>
+
+</html>
